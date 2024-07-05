@@ -21,8 +21,7 @@ class ProductDetailPage extends StatefulWidget {
   State<ProductDetailPage> createState() => _ProductDetailPageState();
 }
 
-class _ProductDetailPageState
-    extends BaseState<ProductDetailPage, ProductDetailController> {
+class _ProductDetailPageState extends BaseState<ProductDetailPage, ProductDetailController> {
   @override
   void initState() {
     super.initState();
@@ -51,10 +50,7 @@ class _ProductDetailPageState
               onPressed: () {
                 Navigator.pop(context);
                 Navigator.of(context).pop(
-                  OrderProductDto(
-                    product: widget.product, 
-                    amount: amount
-                  ),
+                  OrderProductDto(product: widget.product, amount: amount),
                 );
               },
               child: Text(
@@ -79,8 +75,7 @@ class _ProductDetailPageState
             width: context.screenWidth,
             height: context.percentHeight(.4),
             decoration: BoxDecoration(
-              image: DecorationImage(
-                  image: NetworkImage(widget.product.image), fit: BoxFit.cover),
+              image: DecorationImage(image: NetworkImage(widget.product.imageUrl), fit: BoxFit.cover),
             ),
           ),
           const SizedBox(
@@ -88,8 +83,7 @@ class _ProductDetailPageState
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10),
-            child: Text(widget.product.name,
-                style: context.textStyles.textExtraBold.copyWith(fontSize: 22)),
+            child: Text(widget.product.name, style: context.textStyles.textExtraBold.copyWith(fontSize: 22)),
           ),
           const SizedBox(
             height: 10,
@@ -97,8 +91,7 @@ class _ProductDetailPageState
           Expanded(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: SingleChildScrollView(
-                  child: Text(widget.product.description)),
+              child: SingleChildScrollView(child: Text(widget.product.description)),
             ),
           ),
           const Divider(),
@@ -129,24 +122,19 @@ class _ProductDetailPageState
                 child: BlocBuilder<ProductDetailController, int>(
                   builder: (context, amount) {
                     return ElevatedButton(
-                      style: amount == 0
-                          ? ElevatedButton.styleFrom(
-                              backgroundColor: Colors.red)
-                          : null,
+                      style: amount == 0 ? ElevatedButton.styleFrom(backgroundColor: Colors.red) : null,
                       onPressed: () {
                         if (amount == 0) {
                           _showConfirmDelete(amount);
                         } else {
                           Navigator.of(context).pop(
-                            OrderProductDto(
-                                product: widget.product, amount: amount),
+                            OrderProductDto(product: widget.product, amount: amount),
                           );
                         }
                       },
                       child: Visibility(
                         visible: amount > 0,
-                        replacement: Text('Excluir produto',
-                            style: context.textStyles.textExtraBold),
+                        replacement: Text('Excluir produto', style: context.textStyles.textExtraBold),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
