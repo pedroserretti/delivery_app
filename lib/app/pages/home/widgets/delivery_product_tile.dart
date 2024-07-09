@@ -5,6 +5,7 @@ import 'package:delivery_app/app/dto/order_product_dto.dart';
 import 'package:delivery_app/app/models/product_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lottie/lottie.dart';
 
 import '../home_controller.dart';
 
@@ -44,7 +45,7 @@ class DeliveryProductTile extends StatelessWidget {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(bottom: 8.0),
+                    padding: const EdgeInsets.only(bottom: 8.0, right: 20),
                     child: Text(
                       product.description,
                       style: context.textStyles.textRegular.copyWith(fontSize: 13),
@@ -60,13 +61,38 @@ class DeliveryProductTile extends StatelessWidget {
                 ],
               ),
             ),
-            FadeInImage.assetNetwork(
-              placeholder: 'assets/images/loading.gif',
-              image: product.imageUrl,
-              width: 100,
-              height: 100,
-              fit: BoxFit.contain,
-            ),
+            Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(50),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.5),
+                      spreadRadius: 5,
+                      blurRadius: 7,
+                      offset: const Offset(0, 3), // changes position of shadow
+                    ),
+                  ],
+                ),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(15),
+                  child: Image.network(
+                    product.imageUrl,
+                    width: 100,
+                    height: 100,
+                    fit: BoxFit.cover,
+                    loadingBuilder: (context, child, loadingProgress) {
+                      if (loadingProgress == null) return child;
+                      return Center(
+                        child: Lottie.asset(
+                          'assets/json/loading_product.json',
+                          width: 50,
+                          height: 50,
+                          fit: BoxFit.contain,
+                        ),
+                      );
+                    },
+                  ),
+                )),
           ],
         ),
       ),
