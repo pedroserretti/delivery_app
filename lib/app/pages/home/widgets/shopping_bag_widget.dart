@@ -37,6 +37,12 @@ class ShoppingBagWidget extends StatelessWidget {
         borderRadius: BorderRadius.only(topLeft: Radius.circular(7), topRight: Radius.circular(7)),
       ),
       child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          elevation: 10,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+        ),
         onPressed: () {
           _goOrder(context);
         },

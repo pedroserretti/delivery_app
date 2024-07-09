@@ -12,7 +12,6 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-
   final _formKey = GlobalKey<FormState>();
   final _emailEC = TextEditingController();
   final _passwordEC = TextEditingController();
@@ -23,6 +22,7 @@ class _LoginPageState extends State<LoginPage> {
     _passwordEC.dispose();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,51 +33,79 @@ class _LoginPageState extends State<LoginPage> {
             child: Padding(
               padding: const EdgeInsets.all(20.0),
               child: Form(
-                key: _formKey,
+                  key: _formKey,
                   child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Login',
-                    style: context.textStyles.textTitle,
-                  ),
-                  const SizedBox(height: 30),
-                  TextFormField(
-                    decoration: const InputDecoration(labelText: 'E-mail'),
-                    controller: _emailEC,
-                    validator: Validatorless.multiple([
-                      Validatorless.required('E-mail obrigatório'),
-                      Validatorless.email('E-mail inválido'),
-                    ]),
-                  ),
-                  const SizedBox(height: 30),
-                  TextFormField(
-                    decoration: const InputDecoration(labelText: 'Senha'),
-                    controller: _passwordEC,
-                    validator: Validatorless.multiple([
-                      Validatorless.required('Senha obrigatória'),
-                    ]),
-                  ),
-                  const SizedBox(
-                    height: 50,
-                  ),
-                  Center(
-                    child: DeliveryButton(
-                        width: double.infinity,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Login',
+                        style: context.textStyles.textTitle,
+                      ),
+                      const SizedBox(height: 30),
+                      Container(
                         height: 50,
-                        label: 'ENTRAR',
-                        onPressed: () {
-                          final valid = _formKey.currentState?.validate() ?? false;
+                        decoration: BoxDecoration(
+                          color: Colors.blueGrey[50],
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: TextFormField(
+                          textAlignVertical: TextAlignVertical.center,
+                          decoration: InputDecoration(
+                            fillColor: Colors.blueGrey[50],
+                            filled: true,
+                            contentPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
+                            labelText: "E-mail",
+                            border: OutlineInputBorder(borderSide: BorderSide.none, borderRadius: BorderRadius.circular(10)),
+                            focusedBorder: OutlineInputBorder(borderSide: BorderSide.none, borderRadius: BorderRadius.circular(10)),
+                            enabledBorder: OutlineInputBorder(borderSide: BorderSide.none, borderRadius: BorderRadius.circular(10)),
+                          ),
+                          controller: _emailEC,
+                          validator: Validatorless.multiple([
+                            Validatorless.required('E-mail obrigatório'),
+                            Validatorless.email('E-mail inválido'),
+                          ]),
+                        ),
+                      ),
+                      const SizedBox(height: 30),
+                      Container(
+                        height: 50,
+                        decoration: BoxDecoration(
+                          color: Colors.blueGrey[50],
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: TextFormField(
+                          textAlignVertical: TextAlignVertical.center,
+                          decoration: InputDecoration(
+                            fillColor: Colors.blueGrey[50],
+                            filled: true,
+                            contentPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
+                            labelText: "Senha",
+                            border: OutlineInputBorder(borderSide: BorderSide.none, borderRadius: BorderRadius.circular(10)),
+                            focusedBorder: OutlineInputBorder(borderSide: BorderSide.none, borderRadius: BorderRadius.circular(10)),
+                            enabledBorder: OutlineInputBorder(borderSide: BorderSide.none, borderRadius: BorderRadius.circular(10)),
+                          ),
+                          controller: _passwordEC,
+                          validator: Validatorless.multiple([
+                            Validatorless.required('Senha obrigatória'),
+                          ]),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 50,
+                      ),
+                      Center(
+                        child: DeliveryButton(
+                            width: double.infinity,
+                            height: 50,
+                            label: 'ENTRAR',
+                            onPressed: () {
+                              final valid = _formKey.currentState?.validate() ?? false;
 
-                          if (valid) {
-
-                          }
-                      }
-                    ),
-                  )
-                ],
-              )
-            ),
+                              if (valid) {}
+                            }),
+                      )
+                    ],
+                  )),
             ),
           ),
           SliverFillRemaining(
@@ -99,13 +127,11 @@ class _LoginPageState extends State<LoginPage> {
                         },
                         child: Text(
                           'Cadastre-se',
-                          style: context.textStyles.textBold
-                              .copyWith(color: Colors.blue),
+                          style: context.textStyles.textBold.copyWith(color: Colors.blue),
+                        ),
                       ),
-                    ),
-                  ],
-                )
-              ),
+                    ],
+                  )),
             ),
           )
         ],
