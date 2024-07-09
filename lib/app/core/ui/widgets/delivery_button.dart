@@ -18,7 +18,7 @@ class DeliveryButton extends StatelessWidget {
           onPressed: onPressed,
           child: Text(
             label,
-            style: TextStyle(color: context.colors.secondary),
+            style: TextStyle(color: context.colors.white),
           )),
     );
   }

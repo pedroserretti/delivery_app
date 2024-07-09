@@ -140,7 +140,7 @@ class _ProductDetailPageState extends BaseState<ProductDetailPage, ProductDetail
                           children: [
                             Text(
                               'Adicionar',
-                              style: context.textStyles.textExtraBold,
+                              style: context.textStyles.textButtonLabel,
                             ),
                             const SizedBox(
                               width: 10,
@@ -152,7 +152,7 @@ class _ProductDetailPageState extends BaseState<ProductDetailPage, ProductDetail
                                 minFontSize: 5,
                                 maxLines: 1,
                                 textAlign: TextAlign.center,
-                                style: context.textStyles.textExtraBold,
+                                style: context.textStyles.textButtonLabel,
                               ),
                             ),
                           ],

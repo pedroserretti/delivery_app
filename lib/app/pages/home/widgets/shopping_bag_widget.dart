@@ -16,18 +16,14 @@ class ShoppingBagWidget extends StatelessWidget {
     if (!sp.containsKey('accessToken')) {
       // Envio para o login
       final loginResult = await navigator.pushNamed('/auth/login');
-    } 
+    }
 
-      // Envio para o order
+    // Envio para o order
   }
 
   @override
   Widget build(BuildContext context) {
-
-    var totalBag = bag.fold<double>(
-      0.0,  
-      (total, element) => total += element.totalPrice
-    ).currencyPTBR;
+    var totalBag = bag.fold<double>(0.0, (total, element) => total += element.totalPrice).currencyPTBR;
 
     return Container(
       width: context.screenWidth,
@@ -36,15 +32,9 @@ class ShoppingBagWidget extends StatelessWidget {
       decoration: const BoxDecoration(
         color: Colors.white,
         boxShadow: [
-          BoxShadow(
-            color: Colors.black12, 
-            blurRadius: 5
-          ),
+          BoxShadow(color: Colors.black12, blurRadius: 5),
         ],
-        borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(7), 
-            topRight: Radius.circular(7)
-        ),
+        borderRadius: BorderRadius.only(topLeft: Radius.circular(7), topRight: Radius.circular(7)),
       ),
       child: ElevatedButton(
         onPressed: () {
@@ -60,18 +50,13 @@ class ShoppingBagWidget extends StatelessWidget {
             ),
             Align(
               alignment: Alignment.center,
-              child: Text(
-                'Ver sacola', 
-                style: context.textStyles.textExtraBold.copyWith(
-                  color: Colors.white, 
-                  fontSize: 14)
-              ),
+              child: Text('Ver sacola', style: context.textStyles.textButtonLabel.copyWith(fontSize: 14)),
             ),
             Align(
               alignment: Alignment.centerRight,
-              child: Text(totalBag, 
-              style: context.textStyles.textExtraBold.copyWith(
-                fontSize: 11),
+              child: Text(
+                totalBag,
+                style: context.textStyles.textButtonLabel.copyWith(fontSize: 11),
               ),
             ),
           ],
