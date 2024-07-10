@@ -50,7 +50,7 @@ class _RegisterPageState extends BaseState<RegisterPage, RegisterController> {
         );
       },
       child: Scaffold(
-        appBar: DeliveryAppbar(),
+        appBar: DeliveryAppbar(context),
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(20.0),

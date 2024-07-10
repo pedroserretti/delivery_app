@@ -26,86 +26,88 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: DeliveryAppbar(),
+      appBar: DeliveryAppbar(context),
       body: CustomScrollView(
         slivers: [
           SliverToBoxAdapter(
             child: Padding(
               padding: const EdgeInsets.all(20.0),
               child: Form(
-                  key: _formKey,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Login',
-                        style: context.textStyles.textTitle,
+                key: _formKey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Login',
+                      style: context.textStyles.textTitle,
+                    ),
+                    const SizedBox(height: 30),
+                    Container(
+                      height: 50,
+                      decoration: BoxDecoration(
+                        color: Colors.blueGrey[50],
+                        borderRadius: BorderRadius.circular(10),
                       ),
-                      const SizedBox(height: 30),
-                      Container(
+                      child: TextFormField(
+                        textAlignVertical: TextAlignVertical.center,
+                        decoration: InputDecoration(
+                          fillColor: Colors.blueGrey[50],
+                          filled: true,
+                          contentPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
+                          labelText: "E-mail",
+                          border: OutlineInputBorder(borderSide: BorderSide.none, borderRadius: BorderRadius.circular(10)),
+                          focusedBorder: OutlineInputBorder(borderSide: BorderSide.none, borderRadius: BorderRadius.circular(10)),
+                          enabledBorder: OutlineInputBorder(borderSide: BorderSide.none, borderRadius: BorderRadius.circular(10)),
+                        ),
+                        controller: _emailEC,
+                        validator: Validatorless.multiple([
+                          Validatorless.required('E-mail obrigatório'),
+                          Validatorless.email('E-mail inválido'),
+                        ]),
+                      ),
+                    ),
+                    const SizedBox(height: 30),
+                    Container(
+                      height: 50,
+                      decoration: BoxDecoration(
+                        color: Colors.blueGrey[50],
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: TextFormField(
+                        textAlignVertical: TextAlignVertical.center,
+                        decoration: InputDecoration(
+                          fillColor: Colors.blueGrey[50],
+                          filled: true,
+                          contentPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
+                          labelText: "Senha",
+                          border: OutlineInputBorder(borderSide: BorderSide.none, borderRadius: BorderRadius.circular(10)),
+                          focusedBorder: OutlineInputBorder(borderSide: BorderSide.none, borderRadius: BorderRadius.circular(10)),
+                          enabledBorder: OutlineInputBorder(borderSide: BorderSide.none, borderRadius: BorderRadius.circular(10)),
+                        ),
+                        controller: _passwordEC,
+                        validator: Validatorless.multiple([
+                          Validatorless.required('Senha obrigatória'),
+                        ]),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 50,
+                    ),
+                    Center(
+                      child: DeliveryButton(
+                        width: double.infinity,
                         height: 50,
-                        decoration: BoxDecoration(
-                          color: Colors.blueGrey[50],
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: TextFormField(
-                          textAlignVertical: TextAlignVertical.center,
-                          decoration: InputDecoration(
-                            fillColor: Colors.blueGrey[50],
-                            filled: true,
-                            contentPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
-                            labelText: "E-mail",
-                            border: OutlineInputBorder(borderSide: BorderSide.none, borderRadius: BorderRadius.circular(10)),
-                            focusedBorder: OutlineInputBorder(borderSide: BorderSide.none, borderRadius: BorderRadius.circular(10)),
-                            enabledBorder: OutlineInputBorder(borderSide: BorderSide.none, borderRadius: BorderRadius.circular(10)),
-                          ),
-                          controller: _emailEC,
-                          validator: Validatorless.multiple([
-                            Validatorless.required('E-mail obrigatório'),
-                            Validatorless.email('E-mail inválido'),
-                          ]),
-                        ),
-                      ),
-                      const SizedBox(height: 30),
-                      Container(
-                        height: 50,
-                        decoration: BoxDecoration(
-                          color: Colors.blueGrey[50],
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: TextFormField(
-                          textAlignVertical: TextAlignVertical.center,
-                          decoration: InputDecoration(
-                            fillColor: Colors.blueGrey[50],
-                            filled: true,
-                            contentPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
-                            labelText: "Senha",
-                            border: OutlineInputBorder(borderSide: BorderSide.none, borderRadius: BorderRadius.circular(10)),
-                            focusedBorder: OutlineInputBorder(borderSide: BorderSide.none, borderRadius: BorderRadius.circular(10)),
-                            enabledBorder: OutlineInputBorder(borderSide: BorderSide.none, borderRadius: BorderRadius.circular(10)),
-                          ),
-                          controller: _passwordEC,
-                          validator: Validatorless.multiple([
-                            Validatorless.required('Senha obrigatória'),
-                          ]),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 50,
-                      ),
-                      Center(
-                        child: DeliveryButton(
-                            width: double.infinity,
-                            height: 50,
-                            label: 'ENTRAR',
-                            onPressed: () {
-                              final valid = _formKey.currentState?.validate() ?? false;
+                        label: 'ENTRAR',
+                        onPressed: () {
+                          final valid = _formKey.currentState?.validate() ?? false;
 
-                              if (valid) {}
-                            }),
-                      )
-                    ],
-                  )),
+                          if (valid) {}
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ),
           ),
           SliverFillRemaining(
@@ -113,27 +115,28 @@ class _LoginPageState extends State<LoginPage> {
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        'Não possui uma conta?',
-                        style: context.textStyles.textBold,
+                alignment: Alignment.bottomCenter,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Não possui uma conta?',
+                      style: context.textStyles.textBold,
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pushNamed('/auth/register');
+                      },
+                      child: Text(
+                        'Cadastre-se',
+                        style: context.textStyles.textBold.copyWith(color: Colors.blue),
                       ),
-                      TextButton(
-                        onPressed: () {
-                          Navigator.of(context).pushNamed('/auth/register');
-                        },
-                        child: Text(
-                          'Cadastre-se',
-                          style: context.textStyles.textBold.copyWith(color: Colors.blue),
-                        ),
-                      ),
-                    ],
-                  )),
+                    ),
+                  ],
+                ),
+              ),
             ),
-          )
+          ),
         ],
       ),
     );
