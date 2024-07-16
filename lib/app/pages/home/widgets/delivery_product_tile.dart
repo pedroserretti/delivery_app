@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:delivery_app/app/core/extensions/formatter_extension.dart';
 import 'package:delivery_app/app/core/ui/styles/colors_app.dart';
 import 'package:delivery_app/app/core/ui/styles/text_styles.dart';
@@ -66,44 +68,51 @@ class DeliveryProductTile extends StatelessWidget {
                   ],
                 ),
               ),
-              Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(50),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.4),
-                        offset: const Offset(0, -2),
-                        blurRadius: 8.0,
-                      ),
-                    ],
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(15),
+                  child: Image.network(
+                    product.imageUrl,
+                    width: 100,
+                    height: 100,
+                    fit: BoxFit.cover,
+                    // loadingBuilder: (context, child, loadingProgress) {
+                    //   if (loadingProgress == null) return child;
+                    //   return Center(
+                    //     child: Lottie.asset(
+                    //       'assets/json/loading_product.json',
+                    //       width: 50,
+                    //       height: 50,
+                    //       fit: BoxFit.contain,
+                    //     ),
+                    //   );
+                    // },
                   ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(15),
-                      child: Image.network(
-                        product.imageUrl,
-                        width: 100,
-                        height: 100,
-                        fit: BoxFit.cover,
-                        loadingBuilder: (context, child, loadingProgress) {
-                          if (loadingProgress == null) return child;
-                          return Center(
-                            child: Lottie.asset(
-                              'assets/json/loading_product.json',
-                              width: 50,
-                              height: 50,
-                              fit: BoxFit.contain,
-                            ),
-                          );
-                        },
-                      ),
-                    ),
-                  )),
+                ),
+              ),
             ],
           ),
         ),
       ),
     );
   }
+}
+
+Future<ImageInfo> _loadImage(String imageUrl) async {
+  final Completer<ImageInfo> completer = Completer();
+  final NetworkImage networkImage = NetworkImage(imageUrl);
+
+  networkImage.resolve(const ImageConfiguration()).addListener(
+        ImageStreamListener(
+          (ImageInfo info, bool synchronousCall) {
+            completer.complete(info);
+          },
+          onError: (dynamic error, StackTrace? stackTrace) {
+            completer.completeError(error);
+          },
+        ),
+      );
+
+  return completer.future;
 }

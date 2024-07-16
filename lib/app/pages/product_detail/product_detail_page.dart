@@ -67,7 +67,7 @@ class _ProductDetailPageState extends BaseState<ProductDetailPage, ProductDetail
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: DeliveryAppbar(context),
+      // appBar: DeliveryAppbar(context),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
