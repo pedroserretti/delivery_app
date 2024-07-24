@@ -52,6 +52,8 @@ class ShoppingBagWidget extends StatelessWidget {
               alignment: Alignment.centerLeft,
               child: Icon(
                 Icons.shopping_cart_outlined,
+                color: Colors.white,
+                size: 18,
               ),
             ),
             Align(

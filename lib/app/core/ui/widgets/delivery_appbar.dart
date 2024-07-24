@@ -13,32 +13,34 @@ class DeliveryAppbar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
-      expandedHeight: 160,
       collapsedHeight: 120,
       floating: false,
       pinned: true,
-      actions: [
-        Padding(
-          padding: const EdgeInsets.only(right: 8),
-          child: InkWell(
-            onTap: () {},
-            child: const Icon(EvaIcons.shopping_cart),
-          ),
-        ),
-      ],
+      // actions: [
+      //   Padding(
+      //     padding: const EdgeInsets.only(right: 8),
+      //     child: InkWell(
+      //       onTap: () {},
+      //       child: const Icon(EvaIcons.shopping_cart),
+      //     ),
+      //   ),
+      // ],
       title: InkWell(
         onTap: () {},
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            const Icon(EvaIcons.arrow_down),
-            const SizedBox(width: 5),
-            Text(
-              "Rua teste 12 - Ouro Preto",
-              style: context.textStyles.textBold.copyWith(fontSize: 14),
-            ),
-          ],
+        child: SizedBox(
+          width: 220,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const Icon(EvaIcons.arrow_down),
+              const SizedBox(width: 5),
+              Text(
+                "Rua teste 12 - Ouro Preto",
+                style: context.textStyles.textBold.copyWith(fontSize: 14),
+              ),
+            ],
+          ),
         ),
       ),
       flexibleSpace: FlexibleSpaceBar(

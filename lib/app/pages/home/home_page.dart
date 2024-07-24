@@ -4,7 +4,6 @@ import 'package:delivery_app/app/pages/home/home_controller.dart';
 import 'package:delivery_app/app/pages/home/home_state.dart';
 import 'package:delivery_app/app/pages/home/widgets/best_products.dart';
 import 'package:delivery_app/app/pages/home/widgets/home_search.dart';
-import 'package:delivery_app/app/pages/home/widgets/product_options.dart';
 import 'package:delivery_app/app/pages/home/widgets/shopping_bag_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:skeletonizer/skeletonizer.dart';
@@ -63,53 +62,46 @@ class _HomePageState extends BaseState<HomePage, HomeController> {
                   ),
                 ),
               ],
-              body: ListView(
+              body: Stack(
                 children: [
-                  SizedBox(
-                    height: context.screenHeight - 800,
-                    child: Padding(
-                      padding: const EdgeInsets.all(8),
-                      child: Skeletonizer(enabled: _isLoading, child: const ProductOptions()),
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  SizedBox(
-                    height: context.screenHeight - 620,
-                    child: Skeletonizer(
-                      enabled: _isLoading,
-                      child: ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemCount: state.products.length,
-                        itemBuilder: (context, index) {
-                          final product = state.products[index];
-                          return BestProducts(NetworkImage(product.imageUrl), product.name);
-                        },
+                  ListView(
+                    children: [
+                      SizedBox(
+                        height: context.screenHeight - 620,
+                        child: ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: state.products.length,
+                          itemBuilder: (context, index) {
+                            final product = state.products[index];
+                            return BestProducts(NetworkImage(product.imageUrl), product.name);
+                          },
+                        ),
                       ),
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: Skeletonizer(
-                      enabled: _isLoading,
-                      child: ListView.builder(
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemCount: state.products.length,
-                        itemBuilder: (context, index) {
-                          final product = state.products[index];
-                          final orders = state.shoppingBag.where((order) => order.product == product);
-                          return DeliveryProductTile(
-                            product: product,
-                            orderProduct: orders.isNotEmpty ? orders.first : null,
-                          );
-                        },
+                      const SizedBox(height: 10),
+                      Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: ListView.builder(
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: state.products.length,
+                          itemBuilder: (context, index) {
+                            final product = state.products[index];
+                            final orders = state.shoppingBag.where((order) => order.product == product);
+                            return DeliveryProductTile(
+                              product: product,
+                              orderProduct: orders.isNotEmpty ? orders.first : null,
+                            );
+                          },
+                        ),
                       ),
-                    ),
+                    ],
                   ),
-                  Visibility(
-                    visible: state.shoppingBag.isNotEmpty,
-                    child: ShoppingBagWidget(bag: state.shoppingBag),
+                  Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Visibility(
+                      visible: state.shoppingBag.isNotEmpty,
+                      child: ShoppingBagWidget(bag: state.shoppingBag),
+                    ),
                   ),
                 ],
               ),
