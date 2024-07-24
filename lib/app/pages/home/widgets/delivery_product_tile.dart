@@ -5,9 +5,9 @@ import 'package:delivery_app/app/core/ui/styles/colors_app.dart';
 import 'package:delivery_app/app/core/ui/styles/text_styles.dart';
 import 'package:delivery_app/app/dto/order_product_dto.dart';
 import 'package:delivery_app/app/models/product_model.dart';
+import 'package:delivery_app/app/pages/product_detail/product_detail_page.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:lottie/lottie.dart';
+import 'package:provider/provider.dart';
 
 import '../home_controller.dart';
 
@@ -17,15 +17,26 @@ class DeliveryProductTile extends StatelessWidget {
 
   const DeliveryProductTile({super.key, required this.product, required this.orderProduct});
 
+  Future<dynamic> _openProductDetails(BuildContext context) {
+    return showModalBottomSheet(
+      context: context,
+      builder: (ctx) {
+        return ProductDetailPage(product: product, order: orderProduct);
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () async {
         final controller = context.read<HomeController>();
-        final orderProductResult = await Navigator.of(context).pushNamed('/productDetail', arguments: {
-          'product': product,
-          'order': orderProduct,
-        });
+
+        final orderProductResult = await _openProductDetails(context);
+        // final orderProductResult = await Navigator.of(context).pushNamed('/productDetail', arguments: {
+        // 'product': product,
+        // 'order': orderProduct,
+        // });
 
         if (orderProductResult != null) {
           controller.addOrUpdateBag(orderProductResult as OrderProductDto);
